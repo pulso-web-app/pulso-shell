@@ -1,12 +1,31 @@
-<header>
-  <strong>Pulso</strong>
+@if (authService.isAuthenticated()) {
+  <header>
+    <strong>Pulso</strong>
 
-  <nav>
-    <a routerLink="/crm">CRM</a>
-    <a routerLink="/projects">Projects</a>
-  </nav>
-</header>
+    <nav>
+      <a mat-button routerLink="/crm">
+        CRM
+      </a>
+
+      <a mat-button routerLink="/projects">
+        Projects
+      </a>
+    </nav>
+
+    <span>
+      {{ authService.user()?.email }}
+    </span>
+
+    <button
+      mat-button
+      type="button"
+      (click)="logout()"
+    >
+      Sair
+    </button>
+  </header>
+}
 
 <main>
-  <router-outlet></router-outlet>
+  <router-outlet />
 </main>
