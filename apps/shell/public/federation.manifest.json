@@ -1,4 +1,4 @@
 {
-  "crm": "http://localhost:4201/remoteEntry.json",
-  "projects": "http://localhost:4202/remoteEntry.json"
+  "crm": "https://pulso-web-app-crm.web.app/remoteEntry.json",
+  "projects": "https://pulso-web-app-projects.web.app/remoteEntry.json"
 }

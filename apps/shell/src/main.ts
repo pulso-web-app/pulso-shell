@@ -1,6 +1,9 @@
 import { initFederation } from '@angular-architects/native-federation';
 
-initFederation('federation.manifest.json')
-  .catch(err => console.error(err))
+import { environment } from './environments/environment';
+
+initFederation(environment.federationManifest)
   .then(() => import('./bootstrap'))
-  .catch(err => console.error(err));
+  .catch((err) => {
+    console.error('Failed to initialize Native Federation:', err);
+  });
