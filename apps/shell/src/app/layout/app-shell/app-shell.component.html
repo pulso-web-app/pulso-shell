@@ -1,0 +1,15 @@
+@if (authService.isAuthenticated()) {
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <pulso-shell-navigation />
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <pulso-shell-topbar />
+
+      <main>
+        <router-outlet />
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+}

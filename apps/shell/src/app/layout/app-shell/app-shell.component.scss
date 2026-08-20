@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+mat-sidenav-container {
+  height: 100%;
+  background: var(--pulso-color-background);
+}
+
+mat-sidenav {
+  width: var(--pulso-navigation-width);
+  padding: var(--pulso-space-4) var(--pulso-space-3);
+  background: var(--pulso-color-surface);
+  border-right: 1px solid var(--pulso-color-border);
+  box-shadow: var(--pulso-shadow-surface);
+}
+
+mat-sidenav-content {
+  background: var(--pulso-color-background);
+}
+
+main {
+  width: min(100%, var(--pulso-content-max-width));
+  padding: var(--pulso-space-6);
+}

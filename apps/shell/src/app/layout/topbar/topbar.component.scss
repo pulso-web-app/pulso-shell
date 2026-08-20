@@ -1,0 +1,20 @@
+mat-toolbar {
+  height: var(--pulso-topbar-height);
+  padding: 0 var(--pulso-space-6);
+  background: var(--pulso-color-background);
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--pulso-color-text);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.topbar-divider {
+  --mat-divider-color: var(--pulso-color-divider);
+  margin-inline: var(--pulso-space-6);
+}

@@ -1,25 +1,21 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-
-import { AuthService } from './core/auth/auth.service';
+import { Component } from '@angular/core';
+import { AppShellComponent } from "./layout/app-shell/app-shell.component";
 
 @Component({
   imports: [
-    RouterModule,
-    MatButtonModule,
+    AppShellComponent
   ],
   selector: 'pulso-shell-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly authService = inject(AuthService);
+  // protected readonly authService = inject(AuthService);
 
-  private readonly router = inject(Router);
+  // private readonly router = inject(Router);
 
-  protected async logout(): Promise<void> {
-    await this.authService.logout();
-    await this.router.navigate(['/login']);
-  }
+  // protected async logout(): Promise<void> {
+  //   await this.authService.logout();
+  //   await this.router.navigate(['/login']);
+  // }
 }

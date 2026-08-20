@@ -14,6 +14,7 @@ export const appRoutes: Routes = [
   {
     path: 'login',
     canActivate: [guestGuard],
+    title: 'Login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(
         (module) => module.LoginComponent,
@@ -22,6 +23,7 @@ export const appRoutes: Routes = [
 
   {
     path: 'crm',
+    title: 'CRM',
     canActivate: [authGuard],
     loadChildren: () =>
       loadRemoteModule('crm', './Routes').then(
@@ -31,6 +33,7 @@ export const appRoutes: Routes = [
 
   {
     path: 'projects',
+    title: 'Projects',
     canActivate: [authGuard],
     loadChildren: () =>
       loadRemoteModule('projects', './Routes').then(
