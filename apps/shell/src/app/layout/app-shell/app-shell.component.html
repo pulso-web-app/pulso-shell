@@ -1,11 +1,16 @@
 @if (authService.isAuthenticated()) {
   <mat-sidenav-container>
-    <mat-sidenav #navigation mode="side" opened>
+    <mat-sidenav
+      #navigation
+      [mode]="navigationMode()"
+      [opened]="navigationOpened()"
+      (openedChange)="syncNavigationState($event)"
+    >
       <pulso-shell-navigation />
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <pulso-shell-topbar (menuToggle)="navigation.toggle()" />
+      <pulso-shell-topbar (menuToggle)="toggleNavigation()" />
 
       <main>
         <router-outlet />

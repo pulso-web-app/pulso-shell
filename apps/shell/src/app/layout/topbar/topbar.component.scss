@@ -4,6 +4,11 @@ mat-toolbar {
   background: var(--pulso-color-background);
 }
 
+.menu-button {
+  display: inline-flex;
+  margin-right: var(--pulso-space-2);
+}
+
 .brand {
   font-size: 18px;
   font-weight: 600;
