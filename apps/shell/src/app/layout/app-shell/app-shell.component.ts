@@ -11,13 +11,27 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { TopbarComponent } from '../topbar/topbar.component';
 import { AuthService } from '../../core/auth/auth.service';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
+import { LoadingOverlayComponent } from '../../shared/ui/loading-overlay/loading-overlay.component';
 
 @Component({
   selector: 'pulso-shell-app-shell',
-  imports: [MatSidenavModule, NavigationComponent, TopbarComponent, RouterModule],
+  imports: [
+    MatSidenavModule,
+    NavigationComponent,
+    TopbarComponent,
+    RouterModule,
+    LoadingOverlayComponent,
+  ],
   templateUrl: './app-shell.component.html',
   styleUrl: './app-shell.component.scss',
 })
@@ -30,6 +44,10 @@ export class AppShellComponent implements OnInit {
 
   readonly isMobile = signal(false);
   readonly navigationOpened = signal(true);
+  readonly routeLoading = signal(false);
+  readonly isLoading = computed(() =>
+    this.authService.loading() || this.routeLoading(),
+  );
   readonly navigationMode = computed(() =>
     this.isMobile() ? 'over' : 'side',
   );
@@ -52,6 +70,21 @@ export class AppShellComponent implements OnInit {
         if (this.isMobile()) {
           this.navigationOpened.set(false);
         }
+      });
+
+    this.router.events
+      .pipe(
+        filter(
+          (event) =>
+            event instanceof NavigationStart ||
+            event instanceof NavigationEnd ||
+            event instanceof NavigationCancel ||
+            event instanceof NavigationError,
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((event) => {
+        this.routeLoading.set(event instanceof NavigationStart);
       });
   }
 

@@ -19,6 +19,38 @@
     />
   </head>
   <body>
+    <div id="preboot-loader" role="status" aria-live="polite" aria-label="Carregando">
+      <span class="preboot-spinner" aria-hidden="true"></span>
+      <span>Carregando...</span>
+    </div>
     <pulso-shell-root></pulso-shell-root>
+
+    <style>
+      #preboot-loader {
+        position: fixed;
+        z-index: 2000;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        gap: 0.75rem;
+        align-content: center;
+        background: #11141b;
+        color: #f1edff;
+        font: 0.875rem Roboto, Arial, sans-serif;
+      }
+
+      .preboot-spinner {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 0.18rem solid rgb(196 181 253 / 28%);
+        border-top-color: #c4b5fd;
+        border-radius: 50%;
+        animation: preboot-spin 750ms linear infinite;
+      }
+
+      @keyframes preboot-spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </body>
 </html>
