@@ -20,8 +20,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../../../core/auth/auth.service';
+import { FloatingParticlesComponent } from '../../../shared/ui/floating-particles/floating-particles.component';
 
 @Component({
   selector: 'pulso-shell-login',
@@ -31,6 +33,8 @@ import { AuthService } from '../../../core/auth/auth.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+    FloatingParticlesComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -44,6 +48,7 @@ export class LoginComponent {
 
   readonly submitting = signal(false);
   readonly error = signal<string | null>(null);
+  readonly passwordVisible = signal(false);
 
   readonly form = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -73,5 +78,9 @@ export class LoginComponent {
     } finally {
       this.submitting.set(false);
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible.update((visible) => !visible);
   }
 }

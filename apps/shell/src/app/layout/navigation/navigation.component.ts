@@ -1,7 +1,8 @@
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'pulso-shell-navigation',
@@ -9,4 +10,12 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
-export class NavigationComponent { }
+export class NavigationComponent {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  async logout(): Promise<void> {
+    await this.authService.logout();
+    await this.router.navigate(['/login']);
+  }
+}

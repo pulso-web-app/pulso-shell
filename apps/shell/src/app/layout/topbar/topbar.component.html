@@ -1,4 +1,8 @@
 <mat-toolbar>
+  <button mat-icon-button aria-label="Abrir ou fechar navegação" (click)="menuToggle.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
   <span class="brand">{{ currentTitle() }}</span>
 
   <span class="spacer"></span>

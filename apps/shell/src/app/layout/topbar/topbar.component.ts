@@ -1,7 +1,7 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import {
   ActivatedRouteSnapshot,
@@ -18,6 +18,8 @@ import { filter } from 'rxjs';
 })
 export class TopbarComponent implements OnInit {
   private readonly router = inject(Router);
+
+  @Output() readonly menuToggle = new EventEmitter<void>();
 
   protected currentTitle = signal('');
 

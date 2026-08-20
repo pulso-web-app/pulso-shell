@@ -5,7 +5,10 @@
 
 mat-sidenav-container {
   height: 100%;
-  background: var(--pulso-color-background);
+  background:
+    radial-gradient(circle at 12% 18%, rgb(124 58 237 / 12%), transparent 30rem),
+    radial-gradient(circle at 88% 82%, rgb(217 70 239 / 9%), transparent 28rem),
+    var(--pulso-color-background);
 }
 
 mat-sidenav {
@@ -17,7 +20,7 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-  background: var(--pulso-color-background);
+  background: transparent;
 }
 
 main {

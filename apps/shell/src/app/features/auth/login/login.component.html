@@ -1,10 +1,16 @@
 <main class="login-page">
+  <pulso-shell-floating-particles [count]="48" [speed]="0.55" />
+
   <mat-card class="login-card">
+    <div class="brand-mark" aria-hidden="true">
+      <mat-icon>grid_view</mat-icon>
+    </div>
+
     <mat-card-header>
       <mat-card-title>Pulso</mat-card-title>
 
       <mat-card-subtitle>
-        Entre para continuar
+        Acesse seu espaço de trabalho
       </mat-card-subtitle>
     </mat-card-header>
 
@@ -15,6 +21,7 @@
         (ngSubmit)="login()"
       >
         <mat-form-field appearance="outline">
+          <mat-icon matPrefix>mail_outline</mat-icon>
           <mat-label>E-mail</mat-label>
 
           <input
@@ -26,14 +33,25 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+          <mat-icon matPrefix>lock_outline</mat-icon>
           <mat-label>Senha</mat-label>
 
           <input
             matInput
-            type="password"
+            [type]="passwordVisible() ? 'text' : 'password'"
             formControlName="password"
             autocomplete="current-password"
           />
+
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            [attr.aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'"
+            (click)="togglePasswordVisibility()"
+          >
+            <mat-icon>{{ passwordVisible() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
 
         @if (error()) {
@@ -43,6 +61,7 @@
         }
 
         <button
+          class="submit-button"
           mat-flat-button
           type="submit"
           [disabled]="form.invalid || submitting()"
@@ -52,4 +71,6 @@
       </form>
     </mat-card-content>
   </mat-card>
+
+  <p class="login-footer">Ewerton Mendes © 2026</p>
 </main>

@@ -1,0 +1,10 @@
+<div class="particle-field" aria-hidden="true">
+  @for (particle of particles; track particle.id) {
+    <span
+      #particle
+      class="particle"
+      [style.width.rem]="particle.size"
+      [style.height.rem]="particle.size"
+    ></span>
+  }
+</div>

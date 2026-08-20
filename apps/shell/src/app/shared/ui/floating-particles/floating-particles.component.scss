@@ -1,0 +1,34 @@
+:host {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  pointer-events: auto;
+}
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 32%);
+  border-radius: 50%;
+  background: rgb(196 181 253 / 16%);
+  box-shadow:
+    0 0 1rem rgb(196 181 253 / 22%),
+    inset 0 0 0.35rem rgb(255 255 255 / 18%);
+  opacity: 0.45;
+  transform: translate(-50%, -50%);
+  transition: opacity 700ms ease;
+  will-change: left, top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle {
+    transition: none;
+  }
+}
