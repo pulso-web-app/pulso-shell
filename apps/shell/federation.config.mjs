@@ -1,4 +1,10 @@
-import { withNativeFederation, shareAll } from '@angular-architects/native-federation/config';
+import {
+  shareAll,
+  shareAngularLocales,
+  withNativeFederation,
+} from '@angular-architects/native-federation/config';
+
+const ptLocale = shareAngularLocales(['pt'])['@angular/common/locales/pt'];
 
 export default withNativeFederation({
   name: 'shell',
@@ -12,9 +18,14 @@ export default withNativeFederation({
           // includeSecondaries is an opt-out of ignoreUnusedDeps, so all of
           // @angular/core is shared to prevent mismatches.
           '@angular/core': { singleton: true, strictVersion: true, requiredVersion: 'auto', build: 'package', includeSecondaries: { keepAll: true } },
+          '@angular/common': { singleton: true, strictVersion: true, requiredVersion: 'auto', build: 'package', includeSecondaries: { keepAll: true } },
         },
       },
     ),
+    '@angular/common/locales/pt': {
+      ...ptLocale,
+      includeSecondaries: { keepAll: true },
+    },
   },
 
   skip: [

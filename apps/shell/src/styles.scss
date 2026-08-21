@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 
 html {
-    @include mat.theme((color: (primary: mat.$violet-palette,
-      tertiary: mat.$magenta-palette,
+  @include mat.theme((color: (primary: mat.$violet-palette,
+        tertiary: mat.$magenta-palette,
         theme-type: dark,
       ),
       typography: Roboto,
@@ -15,6 +15,7 @@ html {
 :root {
   --pulso-color-background: #11141b;
   --pulso-color-surface: #0a0e15;
+  --pulso-color-section-background: #181b21;
   --pulso-color-surface-hover: #211d31;
   --pulso-color-surface-active: #3b276d;
   --pulso-color-border: #302943;
@@ -23,6 +24,16 @@ html {
   --pulso-color-text-muted: #b9b0ce;
   --pulso-color-text-inverse: #11141b;
   --pulso-color-accent: #c4b5fd;
+  --pulso-color-primary-container: #35275f;
+  --pulso-color-on-primary-container: #c4b5fd;
+  --pulso-color-info-container: #143b55;
+  --pulso-color-on-info-container: #69c9ff;
+  --pulso-color-success-container: #173d2d;
+  --pulso-color-on-success-container: #68dfa2;
+  --pulso-color-error-container: #4a2b1e;
+  --pulso-color-on-error-container: #ff9d66;
+  --pulso-color-default-container: #2b3039;
+  --pulso-color-on-default-container: #c7cbd3;
 
   --pulso-space-1: 0.25rem;
   --pulso-space-2: 0.5rem;
@@ -36,9 +47,13 @@ html {
   --pulso-radius-md: 8px;
   --pulso-radius-lg: 12px;
 
+  --pulso-text-sm: 0.875rem;
+  --pulso-text-md: 1rem;
+  --pulso-text-lg: 1.50rem;
+
   --pulso-navigation-width: 15.5rem;
   --pulso-topbar-height: 4rem;
-  --pulso-content-max-width: 90rem;
+  --pulso-content-max-width: 100%;
 
   --pulso-shadow-surface: 0 1px 2px rgb(0 0 0 / 20%);
   --pulso-transition-fast: 150ms ease;
