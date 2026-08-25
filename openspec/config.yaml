@@ -1,0 +1,22 @@
+schema: spec-driven
+
+context: |
+  Language: English
+  All artifacts must be written in English.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  Repository: pulso-shell, the Angular 22 / Nx 23 Native Federation host.
+  Responsibilities: Firebase Authentication, protected top-level routes, application layout, remote manifest, and CRM/Projects integration.
+  Runtime contracts: shell 4200, CRM 4201, Projects 4202; remotes expose ./Routes.
+  Quality gate: npm run check. Integrated federation changes also require all three apps to start and load through the shell.
+  Boundaries: product feature logic stays in its remote; secrets and private Firebase credentials are never committed.
+githubCopilot:
+  cloudAgent: false
+rules:
+  proposal:
+    - State non-goals and authentication, federation, and deployment impact.
+  tasks:
+    - Include focused tests, documentation, strict validation, and integrated verification when federation changes.
+operations:
+  apply:
+    guidance:
+      - Preserve remote names and route contracts unless the approved proposal changes them.

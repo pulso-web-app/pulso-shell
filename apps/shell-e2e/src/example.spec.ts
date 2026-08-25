@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('/');
+test('renders the login page', async ({ page }) => {
+  await page.goto('/login');
 
-  // Expect h1 to contain a substring.
-  expect(await page.locator('h1').innerText()).toContain('Welcome');
+  await expect(page.locator('mat-card-title')).toHaveText('Pulso');
+  await expect(page).toHaveTitle('Login');
 });

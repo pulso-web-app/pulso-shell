@@ -1,102 +1,109 @@
-# PulsoShell
+# Pulso Shell
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Pulso Shell is the browser host for the Pulso web application. It authenticates users with Firebase Authentication, protects the product routes, renders the shared application frame, and loads the CRM and Projects applications at runtime through Native Federation.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+The repository is an independent Angular 22 and Nx 23 workspace. It has its own dependencies, CI, Firebase Hosting target, tests, cache, and release lifecycle.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Current responsibilities
 
-## Run tasks
+- Email-and-password authentication backed by Firebase Authentication.
+- Guest-only `/login` and authenticated `/crm` and `/projects` routes.
+- Runtime loading of the `crm` and `projects` remotes through their `./Routes` exposure.
+- Development federation mapping to CRM on port 4201 and Projects on port 4202.
+- Shared navigation, application layout, loading feedback, and top-level error handling.
 
-To run the dev server for your app, use:
+CRM and Projects business behavior belongs in their respective repositories. The shell coordinates those applications but must not become a shared product-feature implementation.
 
-```sh
-npx nx serve shell
-```
+## Prerequisites
 
-To create a production bundle:
+- Git.
+- npm.
+- Node.js `^22.22.3`, `^24.15.0`, or `^26.0.0`.
+- Playwright browsers when running E2E tests: `npm exec playwright install`.
 
-```sh
-npx nx build shell
-```
+## Recommended integrated setup
 
-To see all available targets to run for a project, run:
+Use the public [`pulso-tooling`](https://github.com/pulso-web-app/pulso-tooling) repository when working on more than one Pulso application.
 
-```sh
-npx nx show project shell
-```
+1. Clone `pulso-tooling` beside this repository.
+2. In `pulso-tooling`, run `npm ci`.
+3. Run `npm run setup` to validate or clone the three app repositories and install their dependencies.
+4. Run `npm run doctor`.
+5. Run `npm run open` to open the multi-root VS Code workspace.
+6. Start `Pulso: dev all` from **Terminal → Run Task**, or run `npm run dev` in `pulso-tooling`.
+7. Open <http://localhost:4200>.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+| Application | Role | URL |
+| --- | --- | --- |
+| Shell | Federation host | <http://localhost:4200> |
+| CRM | Remote | <http://localhost:4201> |
+| Projects | Remote | <http://localhost:4202> |
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Standalone setup
 
-## Add new projects
+1. Clone this repository.
+2. Run `npm ci`.
+3. Confirm the environment with `node --version` and `npm run lint`.
+4. Run `npm run dev`.
+5. Open <http://localhost:4200>.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+The shell itself starts independently, but navigation to a remote requires that remote to be running at the URL configured in `apps/shell/public/federation.manifest.json`.
 
-Use the plugin's generator to create new projects.
+## Commands
 
-To generate a new application, use:
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Serve the host on port 4200. |
+| `npm run build` | Create a production build. |
+| `npm run lint` | Run ESLint. |
+| `npm test` | Run Vitest once. |
+| `npm run test:watch` | Run unit tests in watch mode. |
+| `npm run e2e` | Run the shell Playwright suite. |
+| `npm run format` | Apply Nx formatting. |
+| `npm run format:check` | Check formatting without writing. |
+| `npm run docs:check` | Lint authored Markdown. |
+| `npm run spec:validate` | Strictly validate all OpenSpec artifacts. |
+| `npm run spec:update` | Refresh OpenSpec-managed agent integrations. |
+| `npm run check` | Run docs, specs, lint, unit tests, and production build. |
+| `npm run graph` | Open the Nx project graph. |
 
-```sh
-npx nx g @nx/angular:app demo
-```
+## Testing
 
-To generate a new library, use:
+Unit tests use Vitest. Playwright tests start or reuse the shell on port 4200. Install the browser once with `npm exec playwright install`, then run `npm run e2e`.
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+For authentication, route, manifest, or remote-loading changes, also run all three apps and verify:
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+1. Unauthenticated product navigation redirects to `/login`.
+2. An authenticated user can open `/crm` and `/projects`.
+3. Both remotes load without federation or console errors.
+4. Stopping the aggregate development task releases ports 4200–4202.
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Spec-driven and agent-assisted work
 
-## Set up CI!
+`AGENTS.md` is the authoritative instruction file. Scoped instructions under the shell application add authentication and federation rules. Canonical Pulso Skills live in `.agents/skills`; Claude and Copilot mirrors are generated by `pulso-tooling`.
 
-### Step 1
+For meaningful behavior changes, use the local OpenSpec workflow:
 
-To connect to Nx Cloud, run the following command:
+1. Explore the existing behavior.
+2. Propose a change and request human review.
+3. Apply the approved tasks.
+4. Run `npm run spec:validate` and `npm run check`.
+5. Archive the completed change.
 
-```sh
-npx nx connect
-```
+Cross-repository work uses the same kebab-case change ID in every affected repository, with an umbrella proposal in `pulso-tooling`.
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## CI and deployment
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Firebase workflows validate documentation, specifications, lint, unit tests, and a production build before preview or live hosting steps. Pull requests use Firebase Hosting preview channels; the main branch deploys the configured live target.
 
-### Step 2
+Do not run or change deployment, Firebase project selection, authentication providers, service credentials, or repository secrets without explicit approval.
 
-Use the following command to configure a CI workflow for your workspace:
+## Troubleshooting
 
-```sh
-npx nx g ci-workflow
-```
+- **A remote does not load:** confirm its process and port, then inspect the federation manifest and browser network errors for `remoteEntry.json`.
+- **Nx is not found:** run `npm ci` in this repository. Commands intentionally use the local installation.
+- **Playwright cannot launch a browser:** run `npm exec playwright install`.
+- **Authentication fails locally:** verify the approved Firebase environment configuration. Never add private credentials to source control.
+- **The Nx Console shows the wrong project:** use the multi-root tasks for routine workflows; selecting a single Nx workspace remains an extension limitation.
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/architecture.md](docs/architecture.md) before making architectural or federation changes.
