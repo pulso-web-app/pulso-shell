@@ -50,6 +50,7 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
+        "buildTarget": "shell:esbuild:development",
         "watch": false
       }
     },
