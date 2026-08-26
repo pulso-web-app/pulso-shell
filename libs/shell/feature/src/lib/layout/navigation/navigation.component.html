@@ -1,14 +1,15 @@
 <div class="navigation-content">
   <mat-nav-list>
-    <a mat-list-item routerLink="/crm" routerLinkActive="active">
-      <mat-icon matListItemIcon>dashboard</mat-icon>
-      <span matListItemTitle>CRM</span>
-    </a>
-
-    <a mat-list-item routerLink="/projects" routerLinkActive="active">
-      <mat-icon matListItemIcon>folder</mat-icon>
-      <span matListItemTitle>Projetos</span>
-    </a>
+    @for (remote of remotes; track remote.key) {
+      <a
+        mat-list-item
+        [routerLink]="'/' + remote.path"
+        routerLinkActive="active"
+      >
+        <mat-icon matListItemIcon>{{ remote.icon }}</mat-icon>
+        <span matListItemTitle>{{ remote.title }}</span>
+      </a>
+    }
   </mat-nav-list>
 
   <mat-nav-list class="navigation-footer">

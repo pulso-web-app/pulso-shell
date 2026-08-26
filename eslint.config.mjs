@@ -1,4 +1,9 @@
 import nx from '@nx/eslint-plugin';
+import architecture from './architecture.config.json' with { type: 'json' };
+import {
+  architectureConstraints,
+  typeConstraints,
+} from './tools/architecture-boundaries.mjs';
 
 export default [
   ...nx.configs['flat/base'],
@@ -16,62 +21,8 @@ export default [
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
-            {
-              sourceTag: 'type:app',
-              onlyDependOnLibsWithTags: [
-                'type:feature',
-                'type:data-access',
-                'type:ui',
-                'type:domain',
-                'type:util',
-              ],
-            },
-            {
-              sourceTag: 'type:feature',
-              onlyDependOnLibsWithTags: [
-                'type:feature',
-                'type:data-access',
-                'type:ui',
-                'type:domain',
-                'type:util',
-              ],
-            },
-            {
-              sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: [
-                'type:data-access',
-                'type:domain',
-                'type:util',
-              ],
-            },
-            {
-              sourceTag: 'type:domain',
-              onlyDependOnLibsWithTags: ['type:domain', 'type:util'],
-            },
-            {
-              sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:ui', 'type:domain', 'type:util'],
-            },
-            {
-              sourceTag: 'type:util',
-              onlyDependOnLibsWithTags: ['type:util'],
-            },
-            {
-              sourceTag: 'scope:auth',
-              onlyDependOnLibsWithTags: ['scope:auth', 'scope:shared'],
-            },
-            {
-              sourceTag: 'scope:shell',
-              onlyDependOnLibsWithTags: [
-                'scope:shell',
-                'scope:auth',
-                'scope:shared',
-              ],
-            },
-            {
-              sourceTag: 'scope:shared',
-              onlyDependOnLibsWithTags: ['scope:shared'],
-            },
+            ...typeConstraints,
+            ...architectureConstraints(architecture),
           ],
         },
       ],

@@ -5,6 +5,8 @@ description: Plan, implement, and validate Pulso Shell changes that affect Nativ
 
 # Pulso Native Federation Change
 
+Use `Pulso: Initialize Repository Here` from the Tooling folder when adding a standard remote. Review `pulso.repositories.json`; do not hand-edit `pulso-remotes.generated.ts` or one federation manifest in isolation. All remotes expose `REMOTE_ROUTES`; legacy route constants remain compatibility aliases.
+
 1. Read the root and shell application `AGENTS.md` files.
 2. Identify whether the change belongs to an existing feature-first Nx library or truly needs an independently owned and deployed microfrontend.
 3. Identify every affected public contract: remote name, `./Routes` exposure, route path, guard, remote entry URL, and port.

@@ -2,12 +2,16 @@ import { Routes } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 
 import { authGuard, guestGuard } from '@pulso-shell/auth-data-access';
+import {
+  PULSO_DEFAULT_REMOTE,
+  PULSO_REMOTES,
+} from '@pulso-shell/shell-feature';
 
 export const appRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'crm',
+    redirectTo: PULSO_DEFAULT_REMOTE,
   },
 
   {
@@ -20,21 +24,13 @@ export const appRoutes: Routes = [
       ),
   },
 
-  {
-    path: 'crm',
-    title: 'CRM',
+  ...PULSO_REMOTES.map((remote) => ({
+    path: remote.path,
+    title: remote.title,
     canActivate: [authGuard],
     loadChildren: () =>
-      loadRemoteModule('crm', './Routes').then((module) => module.CRM_ROUTES),
-  },
-
-  {
-    path: 'projects',
-    title: 'Projects',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      loadRemoteModule('projects', './Routes').then(
-        (module) => module.PROJECTS_ROUTES,
+      loadRemoteModule(remote.key, './Routes').then(
+        (module) => module.REMOTE_ROUTES,
       ),
-  },
+  })),
 ];

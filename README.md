@@ -16,6 +16,8 @@ Within that repository, the shell app is a thin composition root and feature-fir
 
 CRM and Projects business behavior belongs in their respective repositories. The shell coordinates those applications but must not become a shared product-feature implementation.
 
+Remote routing, navigation metadata, and both federation manifests are generated from the Tooling repository registry. Add a standard remote with **Pulso: Initialize Repository Here** instead of editing those integration points independently.
+
 ## Prerequisites
 
 - Git.

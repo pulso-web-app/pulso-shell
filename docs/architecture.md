@@ -42,6 +42,10 @@ Nx now models dependencies that actually exist. Repository scripts run targets a
 
 Native Federation still owns runtime composition; Nx owns development-time structure and task orchestration. Keeping those responsibilities separate makes both technologies demonstrable rather than decorative.
 
+## Generated architecture inputs
+
+Capability permissions live in `architecture.config.json`; ESLint translates them into `scope:*` constraints while retaining fixed `type:*` direction. Tooling renders `pulso-remotes.generated.ts` and both federation manifests from `pulso.repositories.json`. Those outputs supply protected routes, the default redirect, navigation, and the uniform `REMOTE_ROUTES` contract and must not be edited separately.
+
 ## Testing and delivery
 
 Vitest runs per project, Playwright verifies host behavior, and production builds traverse library dependencies. Federation changes also require an integrated smoke test with all three development servers. Firebase workflows call the public repository scripts so new Nx libraries enter quality gates automatically.

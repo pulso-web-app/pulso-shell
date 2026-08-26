@@ -19,6 +19,8 @@ For non-trivial behavior, create an OpenSpec change and obtain human review befo
 
 Use `npm run format` only for intentional formatting. Do not mix unrelated mechanical rewrites into a feature change.
 
+Use Pulso Tooling for new libraries, capability features, and remote registration. Add capability dependencies through `architecture.config.json`; generated remote metadata and manifests are reviewed outputs, not independent hand-maintained lists.
+
 ## Pull requests
 
 Keep commits and the pull request focused. Link the OpenSpec change, explain user-visible behavior and non-goals, and include screenshots for visible UI changes. Call out authentication, federation, Firebase Hosting, configuration, and rollback considerations explicitly.

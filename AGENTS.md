@@ -20,6 +20,8 @@ This repository is the Angular/Nx host for Pulso. It owns authentication, protec
 - Create libraries for coherent ownership and test/cache boundaries; do not create speculative layers or split a microfrontend solely because a feature has a route.
 - Product features belong in their remotes; do not move CRM or Projects domain logic into the host.
 - Treat exposed remote routes and manifest names as public contracts.
+- Derive capability scope rules from `architecture.config.json`; do not duplicate scope constraints in ESLint.
+- Treat `pulso-remotes.generated.ts` and federation manifests as registry-generated artifacts.
 - Keep Firebase configuration environment-based and free of private credentials.
 
 ## Commands

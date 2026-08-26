@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "appScope": "shell",
+  "capabilities": {
+    "auth": { "dependsOn": ["shared"] },
+    "shared": { "dependsOn": [] },
+    "shell": { "dependsOn": ["auth", "shared"] }
+  }
+}
