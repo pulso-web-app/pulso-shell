@@ -15,6 +15,9 @@ This repository is the Angular/Nx host for Pulso. It owns authentication, protec
 ## Architecture Boundaries
 
 - The shell may coordinate authentication, navigation, layout, and remote loading.
+- Keep `apps/shell` as the composition root and place owned behavior in feature-first projects under `libs/<capability>/<type>`.
+- Import Nx projects only through `@pulso-shell/*` public entry points and preserve the enforced scope/type dependency direction.
+- Create libraries for coherent ownership and test/cache boundaries; do not create speculative layers or split a microfrontend solely because a feature has a route.
 - Product features belong in their remotes; do not move CRM or Projects domain logic into the host.
 - Treat exposed remote routes and manifest names as public contracts.
 - Keep Firebase configuration environment-based and free of private credentials.
@@ -26,6 +29,7 @@ This repository is the Angular/Nx host for Pulso. It owns authentication, protec
 - `npm run e2e` — run Playwright against the host.
 - `npm run check` — documentation, specifications, lint, unit tests, and production build.
 - `npm run spec:validate` — strict OpenSpec validation.
+- `npm run affected` — run lint, tests, and builds only for projects affected by the current Git diff.
 
 ## Spec-Driven Development
 

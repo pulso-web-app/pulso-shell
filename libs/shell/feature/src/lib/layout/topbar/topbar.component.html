@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <button
+    class="menu-button"
+    mat-icon-button
+    aria-label="Abrir ou fechar navegação"
+    (click)="menuToggle.emit()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="brand">{{ currentTitle() }}</span>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button aria-label="Notificações">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="Perfil">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-divider class="topbar-divider" />

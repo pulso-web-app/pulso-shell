@@ -6,11 +6,12 @@ description: Plan, implement, and validate Pulso Shell changes that affect Nativ
 # Pulso Native Federation Change
 
 1. Read the root and shell application `AGENTS.md` files.
-2. Identify every affected public contract: remote name, `./Routes` exposure, route path, guard, remote entry URL, and port.
-3. For cross-repository work, create the same kebab-case OpenSpec change ID in tooling and every affected app. Keep shell requirements limited to host-owned behavior.
-4. Update development and production manifests together unless the proposal explicitly limits the environment.
-5. Preserve the ports: shell 4200, CRM 4201, Projects 4202.
-6. Validate the shell in isolation, then start all three apps and confirm authenticated navigation loads each remote.
-7. Run `npm run check` and capture any federation or deployment impact in the pull request.
+2. Identify whether the change belongs to an existing feature-first Nx library or truly needs an independently owned and deployed microfrontend.
+3. Identify every affected public contract: remote name, `./Routes` exposure, route path, guard, remote entry URL, and port.
+4. For cross-repository work, create the same kebab-case OpenSpec change ID in tooling and every affected app. Keep shell requirements limited to host-owned behavior.
+5. Update development and production manifests together unless the proposal explicitly limits the environment.
+6. Preserve the ports: shell 4200, CRM 4201, Projects 4202.
+7. Validate affected Nx projects, then the shell in isolation, and finally all three apps with authenticated remote navigation.
+8. Run `npm run check` and capture graph, federation, and deployment impact in the pull request.
 
 Do not silently rename remotes, bypass authentication guards, embed secrets, or deploy.

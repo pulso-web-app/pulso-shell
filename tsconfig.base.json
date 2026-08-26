@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": false,
-    "paths": {}
+    "paths": {
+      "@pulso-shell/auth-data-access": ["./libs/auth/data-access/src/index.ts"],
+      "@pulso-shell/auth-feature": ["./libs/auth/feature/src/index.ts"],
+      "@pulso-shell/shell-feature": ["./libs/shell/feature/src/index.ts"],
+      "@pulso-shell/shared-ui": ["./libs/shared/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

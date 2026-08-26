@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 
-import { authGuard } from './core/auth/auth.guard';
-import { guestGuard } from './core/auth/guest.guard';
+import { authGuard, guestGuard } from '@pulso-shell/auth-data-access';
 
 export const appRoutes: Routes = [
   {
@@ -16,7 +15,7 @@ export const appRoutes: Routes = [
     canActivate: [guestGuard],
     title: 'Login',
     loadComponent: () =>
-      import('./features/auth/login/login.component').then(
+      import('@pulso-shell/auth-feature').then(
         (module) => module.LoginComponent,
       ),
   },
@@ -26,9 +25,7 @@ export const appRoutes: Routes = [
     title: 'CRM',
     canActivate: [authGuard],
     loadChildren: () =>
-      loadRemoteModule('crm', './Routes').then(
-        (module) => module.CRM_ROUTES,
-      ),
+      loadRemoteModule('crm', './Routes').then((module) => module.CRM_ROUTES),
   },
 
   {

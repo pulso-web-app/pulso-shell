@@ -1,0 +1,31 @@
+{
+  "name": "auth-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth/feature/src",
+  "prefix": "pulso-shell",
+  "projectType": "library",
+  "tags": ["scope:auth", "type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "project": "libs/auth/feature/ng-package.json",
+        "tsConfig": "libs/auth/feature/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/auth/feature/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "watch": false
+      }
+    }
+  }
+}

@@ -2,26 +2,48 @@
 
 ## System role
 
-Pulso Shell is the composition root for the browser experience. It bootstraps Angular, initializes Firebase Authentication, decides whether a top-level route is accessible, renders the shared frame, and delegates product routes to independently deployed remotes.
+Pulso Shell is the browser composition root. It authenticates users, owns protected top-level navigation and the authenticated frame, and loads independently deployed CRM and Projects remotes.
 
-## Runtime topology
+The repository is an independent Nx workspace. A repository is the team, deployment, dependency, and CI boundary; an Nx project is a smaller internal ownership, dependency-graph, test, build, and cache boundary. A feature does not become a microfrontend merely because it has a route.
 
-The host runs on port 4200 during development. The federation manifest resolves `crm` to port 4201 and `projects` to port 4202. Each remote exposes `./Routes`, which the shell loads lazily for its protected route.
+## Feature-first project map
 
-The shell owns the route boundary but not the remote feature implementation. A contract change therefore requires coordinated specifications and validation in the shell and affected remote.
+```text
+apps/
+  shell/                         # bootstrap, providers, routes, federation
+  shell-e2e/                     # host-level browser behavior
+libs/
+  auth/
+    data-access/                 # Firebase auth state, operations, guards
+    feature/                     # login experience
+  shell/
+    feature/                     # authenticated frame and navigation
+  shared/
+    ui/                          # shell-local, domain-neutral primitives
+```
 
-## Authentication boundary
+Code is grouped by capability first and technical type second. `apps/shell` stays thin and imports library public APIs through `@pulso-shell/*`. Each library is a real Nx project with its own targets, tags, cache inputs, and public `src/index.ts`.
 
-Firebase Authentication is the identity provider. Authentication services own session state and sign-in or sign-out operations. Guards enforce guest-only and authenticated routes. Product code must not bypass these guards, persist credentials, or log tokens and user secrets.
+## Dependency direction
 
-## Federation boundary
+Nx module-boundary rules enforce type and scope tags. Applications and end-to-end projects compose libraries; feature libraries may orchestrate data access and UI; data-access and UI libraries cannot depend on feature libraries. Authentication libraries cannot depend on shell-owned feature code.
 
-Remote names, exposed modules, route paths, ports, and manifest URLs are public integration contracts. Development and production manifests must remain aligned with their intended environments. Remote failures should be diagnosable without moving remote business logic into the host.
+Create a library when a capability has coherent ownership or deserves an independently testable/cacheable boundary. Do not create empty `domain` or `data-access` projects before real rules, state, or integrations exist.
+
+## Authentication and federation
+
+Firebase Authentication is encapsulated by `auth-data-access`. `/login` is guest-only, while `/crm` and `/projects` are authenticated and rendered inside `shell-feature`.
+
+During development the shell runs on port 4200, resolving `crm` on 4201 and `projects` on 4202. Remote names, `./Routes` exposures, route paths, ports, and manifests are public integration contracts. Splitting another MFE requires a meaningful independent ownership and deployment boundary, not only another screen.
+
+## Why Nx is material here
+
+Nx now models dependencies that actually exist. Repository scripts run targets across the project graph, library builds precede the Native Federation build, unchanged test/build targets can be restored from cache, and `nx affected` can select only projects touched by a change. Tags prevent architecture drift that folder conventions alone would merely document.
+
+Native Federation still owns runtime composition; Nx owns development-time structure and task orchestration. Keeping those responsibilities separate makes both technologies demonstrable rather than decorative.
 
 ## Testing and delivery
 
-Vitest covers isolated behavior. Playwright verifies user-observable host behavior. Federation changes also require an integrated smoke test with all three development servers. Firebase Hosting workflows produce pull-request previews and main-branch deployments after the quality gates pass.
+Vitest runs per project, Playwright verifies host behavior, and production builds traverse library dependencies. Federation changes also require an integrated smoke test with all three development servers. Firebase workflows call the public repository scripts so new Nx libraries enter quality gates automatically.
 
-## Repository boundary
-
-This repository has its own Nx configuration, package lock, dependencies, cache, CI, and hosting target. The parent directory and `pulso-tooling` are coordinators, not Nx or npm workspaces.
+This repository retains its own lockfile, dependencies, cache, CI, and hosting target. The parent directory and `pulso-tooling` coordinate repositories without joining their Nx workspaces.

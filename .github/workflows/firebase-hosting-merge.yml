@@ -32,13 +32,13 @@ jobs:
         run: npm run spec:validate
 
       - name: Lint
-        run: npx nx run shell:lint
+        run: npm run lint
 
       - name: Test
-        run: npx nx run shell:test
+        run: npm test
 
       - name: Build
-        run: npx nx run shell:build:production
+        run: npm run build
 
       - name: Deploy Shell
         uses: FirebaseExtended/action-hosting-deploy@v0
