@@ -36,6 +36,14 @@ Firebase Authentication is encapsulated by `auth-data-access`. `/login` is guest
 
 During development the shell runs on port 4200, resolving `crm` on 4201 and `projects` on 4202. Remote names, `./Routes` exposures, route paths, ports, and manifests are public integration contracts. Splitting another MFE requires a meaningful independent ownership and deployment boundary, not only another screen.
 
+## Shared persistence policy
+
+Shell and CRM explicitly share `@firebase/app` as a strict singleton, in addition to public Firebase entry points. That module owns the service registry. Without sharing it, independently bundled App/Auth and Firestore can register services in different registries even when the Firebase versions match. Keep the pinned `@firebase/app` dependency aligned with the version required by `firebase` when upgrading both applications. Restart development servers after changing federation configuration.
+
+Tooling's `npm run test:firebase-federation` evaluates generated Firebase modules together and checks that Shell's App/Auth and CRM's Firestore resolve the same app without making Firebase requests. Tooling's aggregate check runs it after building all apps. Also verify authenticated CRM navigation through the browser for integration changes.
+
+Shell owns the common Firestore rules and index configuration. Business records live at root `contacts` and `projects` collections, including their descendants, with the same access for every authenticated account. Only personal profile documents under `users/{uid}` are account-specific. Domain models and queries remain in their remotes. See [the Firestore guide](firestore.md).
+
 ## Why Nx is material here
 
 Nx now models dependencies that actually exist. Repository scripts run targets across the project graph, library builds precede the Native Federation build, unchanged test/build targets can be restored from cache, and `nx affected` can select only projects touched by a change. Tags prevent architecture drift that folder conventions alone would merely document.

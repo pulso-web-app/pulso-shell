@@ -107,6 +107,10 @@ For meaningful behavior changes, use the local OpenSpec workflow:
 
 Cross-repository work uses the same kebab-case change ID in every affected repository, with an umbrella proposal in `pulso-tooling`.
 
+## Shared application data
+
+Shell owns the Firestore rules and canonical indexes. Contacts, interactions, and projects are shared by all authenticated accounts; personal profiles remain private. See [the Firestore contract and rule tests](docs/firestore.md).
+
 ## CI and deployment
 
 Firebase workflows validate documentation, specifications, lint, unit tests, and a production build before preview or live hosting steps. Pull requests use Firebase Hosting preview channels; the main branch deploys the configured live target.
