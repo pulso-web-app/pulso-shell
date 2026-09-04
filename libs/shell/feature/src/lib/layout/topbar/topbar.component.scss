@@ -9,6 +9,12 @@ mat-toolbar {
   margin-right: var(--pulso-space-2);
 }
 
+mat-toolbar ph-list,
+mat-toolbar ph-bell,
+mat-toolbar ph-user-circle {
+  display: inline-flex;
+}
+
 .brand {
   font-size: 18px;
   font-weight: 600;

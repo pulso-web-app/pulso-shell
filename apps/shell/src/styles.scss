@@ -1,13 +1,17 @@
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((color: (primary: mat.$violet-palette,
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$violet-palette,
         tertiary: mat.$magenta-palette,
         theme-type: dark,
       ),
       typography: Roboto,
       density: 0,
-    ));
+    )
+  );
 
   color-scheme: dark;
 }
@@ -49,7 +53,7 @@ html {
 
   --pulso-text-sm: 0.875rem;
   --pulso-text-md: 1rem;
-  --pulso-text-lg: 1.50rem;
+  --pulso-text-lg: 1.5rem;
 
   --pulso-navigation-width: 15.5rem;
   --pulso-topbar-height: 4rem;
@@ -72,4 +76,51 @@ body {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Normalize the custom-element baseline without changing Material controls. */
+.pulso-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.pulso-icon--field-prefix {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-start: var(--pulso-space-4);
+  margin-inline-end: var(--pulso-space-2);
+}
+
+.pulso-icon--button-start {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-inline-start: calc(var(--pulso-space-1) * -1);
+  margin-inline-end: var(--pulso-space-2);
+}
+
+.pulso-icon--icon-button,
+.pulso-icon--list {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.pulso-icon--inline {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.pulso-icon--menu {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-end: var(--pulso-space-4);
+}
+
+button.pulso-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

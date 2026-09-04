@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   signal,
 } from '@angular/core';
@@ -13,7 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
+
+import '@phosphor-icons/webcomponents/PhEnvelopeSimple';
+import '@phosphor-icons/webcomponents/PhEye';
+import '@phosphor-icons/webcomponents/PhEyeSlash';
+import '@phosphor-icons/webcomponents/PhLockSimple';
+import '@phosphor-icons/webcomponents/PhSquaresFour';
 
 import { AuthService } from '@pulso-shell/auth-data-access';
 import { FloatingParticlesComponent } from '@pulso-shell/shared-ui';
@@ -26,9 +32,9 @@ import { FloatingParticlesComponent } from '@pulso-shell/shared-ui';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
     FloatingParticlesComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

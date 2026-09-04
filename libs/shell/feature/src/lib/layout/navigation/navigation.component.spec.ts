@@ -28,4 +28,15 @@ describe('NavigationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('keeps the Material navigation list while rendering Phosphor icons', () => {
+    const host = fixture.nativeElement as HTMLElement;
+
+    expect(host.querySelectorAll('mat-nav-list')).toHaveLength(2);
+    expect(host.querySelector('a[mat-list-item]')).not.toBeNull();
+    expect(host.querySelector('ph-squares-four')).not.toBeNull();
+    expect(host.querySelector('ph-folder')).not.toBeNull();
+    expect(host.querySelector('ph-sign-out')).not.toBeNull();
+    expect(host.querySelector('mat-icon')).toBeNull();
+  });
 });

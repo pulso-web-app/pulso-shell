@@ -1,23 +1,35 @@
 <mat-toolbar>
   <button
-    class="menu-button"
+    class="menu-button pulso-icon-button"
     mat-icon-button
     aria-label="Abrir ou fechar navegação"
     (click)="menuToggle.emit()"
   >
-    <mat-icon>menu</mat-icon>
+    <ph-list
+      class="pulso-icon pulso-icon--icon-button"
+      size="22"
+      aria-hidden="true"
+    />
   </button>
 
   <span class="brand">{{ currentTitle() }}</span>
 
   <span class="spacer"></span>
 
-  <button mat-icon-button aria-label="Notificações">
-    <mat-icon>notifications</mat-icon>
+  <button mat-icon-button class="pulso-icon-button" aria-label="Notificações">
+    <ph-bell
+      class="pulso-icon pulso-icon--icon-button"
+      size="22"
+      aria-hidden="true"
+    />
   </button>
 
-  <button mat-icon-button aria-label="Perfil">
-    <mat-icon>account_circle</mat-icon>
+  <button mat-icon-button class="pulso-icon-button" aria-label="Perfil">
+    <ph-user-circle
+      class="pulso-icon pulso-icon--icon-button"
+      size="22"
+      aria-hidden="true"
+    />
   </button>
 </mat-toolbar>
 <mat-divider class="topbar-divider" />

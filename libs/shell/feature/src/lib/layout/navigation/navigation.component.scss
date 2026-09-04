@@ -13,6 +13,10 @@ mat-nav-list {
   padding: 0;
 }
 
+[matListItemIcon] {
+  display: inline-flex;
+}
+
 a[mat-list-item] {
   margin: var(--pulso-space-1) 0;
   border-radius: var(--pulso-radius-md);

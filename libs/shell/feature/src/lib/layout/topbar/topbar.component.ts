@@ -1,8 +1,8 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import {
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
   inject,
   OnInit,
@@ -13,9 +13,14 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
+import '@phosphor-icons/webcomponents/PhBell';
+import '@phosphor-icons/webcomponents/PhList';
+import '@phosphor-icons/webcomponents/PhUserCircle';
+
 @Component({
   selector: 'pulso-shell-topbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatDivider],
+  imports: [MatToolbarModule, MatButtonModule, MatDivider],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.scss',
 })

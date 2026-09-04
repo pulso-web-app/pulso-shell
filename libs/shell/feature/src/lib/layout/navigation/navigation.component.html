@@ -6,7 +6,24 @@
         [routerLink]="'/' + remote.path"
         routerLinkActive="active"
       >
-        <mat-icon matListItemIcon>{{ remote.icon }}</mat-icon>
+        @switch (remote.icon) {
+          @case ('dashboard') {
+            <ph-squares-four
+              matListItemIcon
+              class="pulso-icon pulso-icon--list"
+              size="22"
+              aria-hidden="true"
+            />
+          }
+          @case ('folder') {
+            <ph-folder
+              matListItemIcon
+              class="pulso-icon pulso-icon--list"
+              size="22"
+              aria-hidden="true"
+            />
+          }
+        }
         <span matListItemTitle>{{ remote.title }}</span>
       </a>
     }
@@ -14,7 +31,12 @@
 
   <mat-nav-list class="navigation-footer">
     <button mat-list-item type="button" (click)="logout()">
-      <mat-icon matListItemIcon>logout</mat-icon>
+      <ph-sign-out
+        matListItemIcon
+        class="pulso-icon pulso-icon--list"
+        size="22"
+        aria-hidden="true"
+      />
       <span matListItemTitle>Sair</span>
     </button>
   </mat-nav-list>
